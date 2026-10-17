@@ -30,49 +30,49 @@ class User:
     
     def deposit(self, deposit_amount):
         if deposit_amount <= 0:
-            st.error("❌ Invalid amount")
+            st.error(" Invalid amount")
             return False
         
         self.balance += deposit_amount
         cur.execute('UPDATE user_data SET balance = ?, shares = ? WHERE id = 1', (self.balance, self.shares))
         conn.commit()
-        st.success(f"💰 Successfully deposited: ${deposit_amount:.2f} USD")
+        st.success(f" Successfully deposited: ${deposit_amount:.2f} USD")
         return True
     
     def buy_shares(self, price, buy_quantity):
         total_cost = price * buy_quantity
         
         if buy_quantity <= 0:
-            st.error("❌ Invalid purchase quantity")
+            st.error(" Invalid purchase quantity")
             return False
         
         if total_cost > self.balance:
-            st.error("❌ Insufficient funds")
+            st.error(" Insufficient funds")
             return False
         
         self.balance -= total_cost
         self.shares += buy_quantity
         cur.execute('UPDATE user_data SET balance = ?, shares = ? WHERE id = 1', (self.balance, self.shares))
         conn.commit()
-        st.success(f"✅ Successfully bought {buy_quantity} shares!")
+        st.success(f" Successfully bought {buy_quantity} shares!")
         return True
     
     def sell_shares(self, price, sell_quantity):
         total_cost = price * sell_quantity
         
         if sell_quantity <= 0:
-            st.error("❌ Invalid sale quantity")
+            st.error(" Invalid sale quantity")
             return False
         
         if sell_quantity > self.shares:
-            st.error("❌ Insufficient shares")
+            st.error(" Insufficient shares")
             return False
         
         self.balance += total_cost
         self.shares -= sell_quantity
         cur.execute('UPDATE user_data SET balance = ?, shares = ? WHERE id = 1', (self.balance, self.shares))
         conn.commit()
-        st.success(f"⚡ Successfully sold {sell_quantity} shares!")
+        st.success(f" Successfully sold {sell_quantity} shares!")
         return True
 
 def main():
@@ -88,7 +88,7 @@ def main():
     clean_price = round(price, 2)
 
     # --- WEB INTERFACE UI ---
-    st.title("⚡ Broker Dashboard")
+    st.title(" Broker Dashboard")
     
     # Live Price Banner (Modern look)
     st.info(f"📊 **Live Market Price** | {ticker}: **${clean_price} USD**")
